@@ -1,3 +1,9 @@
 import { atom } from "jotai";
 
-export const notesList = atom<string[]>([]);
+interface Note {
+  note: string;
+  title: string;
+  id: string;
+}
+
+export const notesList = atom<Note[]>([]);

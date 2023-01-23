@@ -1,11 +1,10 @@
 import { Title, Button, Header } from "@mantine/core";
 import { IconPencil, IconPencilPlus } from "@tabler/icons";
 import Link from "next/link";
-import React from "react";
-import { useNotes } from "../hooks/useNotes";
+import { useGlobalModal } from "../hooks/useGlobalModal";
 
 const Navbar: React.FC = () => {
-  const { createNewNote } = useNotes();
+  const { openModal } = useGlobalModal();
 
   return (
     <Header p="md" height={69}>
@@ -15,7 +14,7 @@ const Navbar: React.FC = () => {
             <IconPencil /> Note.it
           </Title>
         </Link>
-        <Button onClick={createNewNote} variant="outline">
+        <Button onClick={() => openModal("CREATE_NOTE")} variant="outline">
           Add a note
           <IconPencilPlus height={16} />
         </Button>

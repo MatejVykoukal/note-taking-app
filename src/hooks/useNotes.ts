@@ -1,18 +1,19 @@
 import { useAtom } from "jotai";
 import { notesList } from "../store/notesStore";
+import { nanoid } from "nanoid";
+
+interface NoteInput {
+  title: string;
+  note: string;
+}
 
 export const useNotes = () => {
   const [notes, setNotes] = useAtom(notesList);
 
-  const createNewNote = () => {
-    const noteInput = prompt("Enter note:");
+  const createNewNote = (newNoteInput: NoteInput) => {
+    const newNoteId = nanoid();
 
-    const newNote = (noteInput ?? "").trim();
-
-    if (!noteInput || !newNote.length)
-      return alert("You didn't write your note. Try again.");
-
-    setNotes([...notes, newNote]);
+    setNotes([...notes, { ...newNoteInput, id: newNoteId }]);
   };
 
   return { notes, createNewNote };

@@ -1,5 +1,6 @@
 import Head from "next/head";
-import React, { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+import GlobalModal from "./GlobalModal";
 import Navbar from "./Navbar";
 
 interface Props {
@@ -15,7 +16,10 @@ const CommonLayout: FC<Props> = ({ children }) => {
       <header>
         <Navbar />
       </header>
-      <main>{children}</main>
+      <main>
+        {children}
+        <GlobalModal />
+      </main>
     </>
   );
 };

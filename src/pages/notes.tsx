@@ -2,10 +2,12 @@ import { Button, Paper, Title, Text } from "@mantine/core";
 import { IconPencilPlus } from "@tabler/icons";
 import type { FC } from "react";
 import CommonLayout from "../Components/CommonLayout";
+import { useGlobalModal } from "../hooks/useGlobalModal";
 import { useNotes } from "../hooks/useNotes";
 
 const Notes: FC = () => {
-  const { notes, createNewNote } = useNotes();
+  const { openModal } = useGlobalModal();
+  const { notes } = useNotes();
 
   return (
     <CommonLayout>
@@ -15,14 +17,15 @@ const Notes: FC = () => {
         </Title>
         {notes.length ? (
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {notes.map((note, index) => (
+            {notes.map(({ note, title, id }) => (
               <Paper
-                key={index}
+                key={id}
                 className="max-h-max overflow-hidden"
                 shadow="lg"
                 p="md"
                 withBorder
               >
+                <Title order={3}>{title}</Title>
                 <Text>{note}</Text>
               </Paper>
             ))}
@@ -30,7 +33,11 @@ const Notes: FC = () => {
         ) : (
           <Text c="dimmed">
             No notes yet.
-            <Button compact onClick={createNewNote} variant="white">
+            <Button
+              compact
+              onClick={() => openModal("CREATE_NOTE")}
+              variant="white"
+            >
               Create your first note
               <IconPencilPlus height={16} />
             </Button>
