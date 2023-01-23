@@ -1,8 +1,10 @@
 import { useAtom } from "jotai";
 import { notesList } from "../store/notesStore";
 import { nanoid } from "nanoid";
-import { saveNoteToLocalStorage } from "../services/notesLocalStorage";
-import { Note } from "../types/notes";
+import {
+  saveAllNotesToLocalStorage,
+  saveNoteToLocalStorage,
+} from "../services/notesLocalStorage";
 
 interface NoteInput {
   title: string;
@@ -19,9 +21,17 @@ export const useNotes = () => {
     saveNoteToLocalStorage(newNote);
   };
 
-  const setAllNotes = (notes: Note[]) => {
-    setNotesState(notes);
+  const deleteNote = (deleteNoteId: string) => {
+    const newNotesState = notesState.filter((note) => note.id !== deleteNoteId);
+
+    setNotesState(newNotesState);
+    saveAllNotesToLocalStorage(newNotesState);
   };
 
-  return { notesState, setAllNotes, createNewNote };
+  return {
+    notesState,
+    setAllNotes: setNotesState,
+    createNewNote,
+    deleteNote,
+  };
 };

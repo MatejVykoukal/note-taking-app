@@ -1,21 +1,26 @@
 import { useAtom } from "jotai";
 import { modalAtom } from "../store/modalStore";
+import { ModalTypes } from "../types/modals";
 import CreateNoteModal from "./CreateNoteModal";
+import DeleteNoteModal from "./DeleteNoteModal";
 
 const GlobalModal = () => {
-  const [{ modalType }] = useAtom(modalAtom);
+  const [modalState] = useAtom(modalAtom);
 
-  if (!modalType) return null;
+  if (!modalState?.modalType) return null;
 
   // TODO: Implement real modals
   const renderDesiredModalComponent = () => {
-    switch (modalType) {
-      case "CREATE_NOTE":
+    switch (modalState?.modalType) {
+      case ModalTypes.CREATE_NOTE:
         return <CreateNoteModal />;
-      case "DELETE_NOTE":
-        return modalType;
-      case "EDIT_NOTE":
-        return modalType;
+      case ModalTypes.DELETE_NOTE:
+        const { deleteNoteId } = modalState.payload;
+        return <DeleteNoteModal deleteNoteId={deleteNoteId} />;
+      case ModalTypes.EDIT_NOTE:
+        return modalState.modalType;
+      default:
+        return null;
     }
   };
 

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import type { FC, ReactNode } from "react";
 import GlobalModal from "./GlobalModal";
-import Navbar from "./Navbar";
+import Header from "./Navbar";
 
 interface Props {
   children: ReactNode;
@@ -13,10 +13,8 @@ const CommonLayout: FC<Props> = ({ children }) => {
       <Head>
         <title>Note taking app</title>
       </Head>
-      <header>
-        <Navbar />
-      </header>
-      <main>
+      <Header />
+      <main className="p-4">
         {children}
         <GlobalModal />
       </main>

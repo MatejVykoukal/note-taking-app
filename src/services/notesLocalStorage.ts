@@ -1,4 +1,3 @@
-import { useLocalStorage } from "@mantine/hooks";
 import type { Note } from "../types/notes";
 
 enum LocalStorageKey {
@@ -6,6 +5,8 @@ enum LocalStorageKey {
 }
 
 export const saveNoteToLocalStorage = (note: Note) => {
+  if (typeof window === "undefined") return;
+
   const notesFromLocalStorage = JSON.parse(
     localStorage.getItem(LocalStorageKey.NOTES) ?? "[]"
   ) as Note[];
@@ -21,4 +22,10 @@ export const getAllNotesFromLocalStorage = () => {
   return JSON.parse(
     localStorage.getItem(LocalStorageKey.NOTES) ?? "[]"
   ) as Note[];
+};
+
+export const saveAllNotesToLocalStorage = (notes: Note[]) => {
+  if (typeof window === "undefined") return;
+
+  localStorage.setItem(LocalStorageKey.NOTES, JSON.stringify(notes));
 };
