@@ -21,9 +21,6 @@ const DeleteNoteModal: React.FC<Props> = ({ deleteNoteId }) => {
     >
       <Text>Are you sure you want to delete this note?</Text>
       <div className="mt-5 flex justify-end gap-5">
-        <Button onClick={closeAllModals} size="xs" variant="outline">
-          No, don&apos;t delete it
-        </Button>
         <Button
           onClick={() => {
             deleteNote(deleteNoteId);
@@ -34,6 +31,9 @@ const DeleteNoteModal: React.FC<Props> = ({ deleteNoteId }) => {
           color="red"
         >
           Delete
+        </Button>
+        <Button onClick={closeAllModals} size="xs" variant="outline">
+          No, don&apos;t delete it
         </Button>
       </div>
     </Modal>

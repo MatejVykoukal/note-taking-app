@@ -31,14 +31,14 @@ const Notes: FC = () => {
             {notesState.map(({ note, title, id }) => (
               <Paper
                 key={id}
-                className="max-h-max overflow-hidden"
+                className="max-h-[300px] overflow-hidden"
                 shadow="lg"
                 p="md"
                 withBorder
               >
-                <div className="flex items-center justify-between">
+                <div className="flex justify-between gap-10">
                   <Title order={3}>{title}</Title>
-                  <div className="flex gap-1">
+                  <div className="flex gap-2">
                     <ActionIcon aria-label="Edit note">
                       <IconEdit size={20} stroke={1} />
                     </ActionIcon>
