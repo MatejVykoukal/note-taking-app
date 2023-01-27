@@ -2,6 +2,10 @@
 
 Web application that allows you to take notes.
 
+## Live demo
+
+<https://note-taking-app-production-0a20.up.railway.app/notes>
+
 ## Start local development server
 
 ### Prerequisites
