@@ -18,7 +18,7 @@ jobs:
           node-version: 18.7.0
 
       - name: Install packages
-        run: yarn install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: Install Railway
         run: npm i -g @railway/cli
