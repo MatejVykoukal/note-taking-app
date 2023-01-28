@@ -26,6 +26,16 @@ npm install
 npm run dev
 ```
 
+### Docker Compose
+
+This will run a PostgreSQL database. Install [Docker Desktop](https://docs.docker.com/desktop/) to make this work. It includes [Docker Engine](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/). You can install them manually if you prefer to not use [Docker Desktop](https://docs.docker.com/desktop/).
+
+```bash
+
+docker compose up
+
+```
+
 <!-- TODO: Invite other devs from WDJ discord to contribute :) -->
 
 <!-- TODO: Rework note creation cycle - go  custom "create modal" way. -->
