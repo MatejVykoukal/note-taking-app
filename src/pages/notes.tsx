@@ -2,6 +2,7 @@ import { Button, Paper, Title, Text, ActionIcon } from "@mantine/core";
 import { IconPencilPlus, IconEdit, IconTrash } from "@tabler/icons";
 import { type FC, useEffect } from "react";
 import CommonLayout from "../Components/CommonLayout";
+import NotesListLayout from "../Components/NotesListLayout";
 import { useGlobalModal } from "../hooks/useGlobalModal";
 import { useNotes } from "../hooks/useNotes";
 import { getAllNotesFromLocalStorage } from "../services/notesLocalStorage";
@@ -27,7 +28,7 @@ const Notes: FC = () => {
           All notes
         </Title>
         {notesState.length ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <NotesListLayout>
             {notesState.map(({ note, title, id }) => (
               <Paper
                 key={id}
@@ -58,7 +59,7 @@ const Notes: FC = () => {
                 <Text>{note}</Text>
               </Paper>
             ))}
-          </div>
+          </NotesListLayout>
         ) : (
           <Text c="dimmed">
             No notes yet.
