@@ -1,8 +1,8 @@
 import { Modal, TextInput, Textarea, Button } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { useGlobalModal } from "../hooks/useGlobalModal";
-import { useNotes } from "../hooks/useNotes";
-import { isStringEmpty } from "../utils/string";
+import { useGlobalModal } from "../../hooks/useGlobalModal";
+import { useNotes } from "../../hooks/useNotes";
+import { isStringEmpty } from "../../utils/string";
 
 const CreateNoteModal = () => {
   const { closeAllModals } = useGlobalModal();

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import type { FC, ReactNode } from "react";
-import GlobalModal from "./GlobalModal";
-import Header from "./Navbar";
+import GlobalModal from "../Modals/GlobalModal";
+import Header from "../Navbar";
 
 interface Props {
   children: ReactNode;
