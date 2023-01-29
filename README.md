@@ -2,6 +2,10 @@
 
 Web application that allows you to take notes.
 
+## Live demo
+
+<https://note-taking-app-production-0a20.up.railway.app/notes>
+
 ## Start local development server
 
 ### Prerequisites
@@ -20,6 +24,16 @@ npm install
 
 ```bash
 npm run dev
+```
+
+### Docker Compose
+
+This will run a PostgreSQL database. Install [Docker Desktop](https://docs.docker.com/desktop/) to make this work. It includes [Docker Engine](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/). You can install them manually if you prefer to not use [Docker Desktop](https://docs.docker.com/desktop/).
+
+```bash
+
+docker compose up
+
 ```
 
 <!-- TODO: Invite other devs from WDJ discord to contribute :) -->
