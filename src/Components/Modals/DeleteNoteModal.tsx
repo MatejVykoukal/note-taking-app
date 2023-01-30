@@ -1,7 +1,7 @@
 import { Button, Modal, Text } from "@mantine/core";
 import React from "react";
-import { useGlobalModal } from "../hooks/useGlobalModal";
-import { useNotes } from "../hooks/useNotes";
+import { useGlobalModal } from "../../hooks/useGlobalModal";
+import { useNotes } from "../../hooks/useNotes";
 
 interface Props {
   deleteNoteId: string;

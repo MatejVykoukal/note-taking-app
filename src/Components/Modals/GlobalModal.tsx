@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
-import { modalAtom } from "../store/modalStore";
-import { ModalTypes } from "../types/modals";
+import { modalAtom } from "../../store/modalStore";
+import { ModalTypes } from "../../types/modals";
 import CreateNoteModal from "./CreateNoteModal";
 import DeleteNoteModal from "./DeleteNoteModal";
 
