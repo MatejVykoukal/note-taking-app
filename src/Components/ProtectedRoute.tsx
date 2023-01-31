@@ -8,24 +8,17 @@ interface Props {
 }
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!session) {
+    if (status == "unauthenticated") {
       void router.push("/signin");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (status === "loading") {
-      setIsLoading(true);
     }
   }, [status]);
 
   const renderProtectedPage = () => {
-    if (isLoading) {
+    if (status === "loading") {
       return (
         <div className="flex h-screen w-full items-center justify-center">
           <Loader color="gray" />
