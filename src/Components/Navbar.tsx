@@ -3,6 +3,7 @@ import { IconPencil, IconPencilPlus } from "@tabler/icons";
 import Link from "next/link";
 import { useGlobalModal } from "../hooks/useGlobalModal";
 import { ModalTypes } from "../types/modals";
+import SignOutButton from "./SignOutButton";
 
 const Header: React.FC = () => {
   const { openModal } = useGlobalModal();
@@ -15,13 +16,16 @@ const Header: React.FC = () => {
             <IconPencil /> Note.it
           </Title>
         </Link>
-        <Button
-          onClick={() => openModal({ modalType: ModalTypes.CREATE_NOTE })}
-          variant="outline"
-        >
-          Add a note
-          <IconPencilPlus height={16} />
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            onClick={() => openModal({ modalType: ModalTypes.CREATE_NOTE })}
+            variant="outline"
+          >
+            Add a note
+            <IconPencilPlus height={16} />
+          </Button>
+          <SignOutButton />
+        </div>
       </div>
     </HeaderManite>
   );
