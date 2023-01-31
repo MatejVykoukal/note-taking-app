@@ -9,8 +9,7 @@ const SignOutButton: FC = () => {
     <Button
       onClick={(e) => {
         e.preventDefault();
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        signOut();
+        void signOut();
       }}
       variant="default"
     >

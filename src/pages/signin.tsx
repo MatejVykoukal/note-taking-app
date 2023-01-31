@@ -9,15 +9,13 @@ const SignIn: FC = () => {
   const router = useRouter();
   const handleSignIn = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    signIn("discord", {
+    void signIn("discord", {
       callbackUrl: "/notes",
     });
   };
   useEffect(() => {
     if (session) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push("/notes");
+      void router.push("/notes");
     }
   }, [session]);
   return (
