@@ -15,9 +15,9 @@ const PublicRoute: FC<Props> = ({ children }) => {
       void router.push("/notes");
     }
   }, [status]);
-  
+
   const renderPublicRoute = () => {
-    if (status === "authenticated") {
+    if (status === "loading") {
       return (
         <div className="flex h-screen w-full items-center justify-center">
           <Loader color="gray" />
