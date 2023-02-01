@@ -24,8 +24,9 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
           <Loader color="gray" />
         </div>
       );
-    } else {
-      return children;
+    } 
+    if(status === "authenticated") {
+        return children;
     }
   };
 
