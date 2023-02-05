@@ -55,6 +55,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Note          Note[]
 }
 
 model VerificationToken {
@@ -66,7 +67,9 @@ model VerificationToken {
 }
 
 model Note {
-    id    String @id @default(cuid())
-    title String
-    note  String
+    id     String @id @default(cuid())
+    title  String
+    note   String
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
