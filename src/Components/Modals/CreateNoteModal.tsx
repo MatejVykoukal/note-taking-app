@@ -1,20 +1,34 @@
 import { Modal, TextInput, Textarea, Button } from "@mantine/core";
 import classNames from "classnames";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import {
   NOTE_CONTENT_LENGHT_LIMIT,
   NOTE_TITLE_LENGHT_LIMIT,
 } from "../../constants/notes";
+import { IconLoader2 } from "@tabler/icons";
+
 import { useGlobalModal } from "../../hooks/useGlobalModal";
-import { useNotes } from "../../hooks/useNotes";
+// import { useNotes } from "../../hooks/useNotes";
+import { api } from "../../utils/api";
 import { isStringEmpty } from "../../utils/string";
 
 const CreateNoteModal = () => {
   const { closeAllModals } = useGlobalModal();
-  const { createNewNote } = useNotes();
+  // const { createNewNote } = useNotes();
 
   const [title, setTitle] = useState({ value: "", validationError: "" });
   const [note, setNote] = useState({ value: "", validationError: "" });
+  const utilsTrpc = api.useContext()
+
+  const { data: session } = useSession();
+  const userId: string = session?.user?.id || "";
+
+  const createNoteMutation = api.notes.createNote.useMutation({
+    onSuccess: () => {
+      void utilsTrpc.invalidate(["notes", "getNotes"]);
+    }
+  });
 
   const handleValidationErrors = () => {
     let shouldSave = true;
@@ -45,7 +59,7 @@ const CreateNoteModal = () => {
 
     if (!shouldSave) return;
 
-    createNewNote({ note: note.value, title: title.value });
+    createNoteMutation.mutate({ title: title.value, note: note.value, userId });
     closeAllModals();
   };
 
@@ -128,6 +142,9 @@ const CreateNoteModal = () => {
         </div>
         <div className="flex justify-end gap-5">
           <Button onClick={handleSaveNote} size="xs" variant="outline">
+              {
+                createNoteMutation.isLoading && <IconLoader2 height={12} />
+              }
             Save
           </Button>
           <Button
