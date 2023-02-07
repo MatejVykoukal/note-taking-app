@@ -39,7 +39,15 @@ const Notes: FC = () => {
                 <div className="flex justify-between gap-10">
                   <Title order={3}>{title}</Title>
                   <div className="flex gap-2">
-                    <ActionIcon aria-label="Edit note">
+                    <ActionIcon 
+                    aria-label="Edit note"
+                    onClick = {() => 
+                        openModal({
+                            modalType: ModalTypes.EDIT_NOTE,
+                            payload: { title, notes: note}
+                        })
+                    }
+                    >
                       <IconEdit size={20} stroke={1} />
                     </ActionIcon>
                     <ActionIcon

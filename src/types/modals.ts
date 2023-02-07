@@ -15,6 +15,10 @@ export interface DeleteModalStore {
 }
 export interface EditModalStore {
   modalType: ModalTypes.EDIT_NOTE;
+  payload: {
+    title: string;
+    notes: string;
+  };
 }
 
 export type ModalStoreTypes =

@@ -21,6 +21,12 @@ export const useNotes = () => {
     saveNoteToLocalStorage(newNote);
   };
 
+  // TODO: Austin - need to edit this section to allow edition of note
+  const editCurrentNote = (editInitialNote: NoteInput) => {
+    const editNote = { ...editInitialNote };
+
+  };
+
   const deleteNote = (deleteNoteId: string) => {
     const newNotesState = notesState.filter((note) => note.id !== deleteNoteId);
 
@@ -32,6 +38,7 @@ export const useNotes = () => {
     notesState,
     setAllNotes: setNotesState,
     createNewNote,
+    editCurrentNote,
     deleteNote,
   };
 };

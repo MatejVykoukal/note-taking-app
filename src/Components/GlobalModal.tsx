@@ -3,6 +3,7 @@ import { modalAtom } from "../store/modalStore";
 import { ModalTypes } from "../types/modals";
 import CreateNoteModal from "./CreateNoteModal";
 import DeleteNoteModal from "./DeleteNoteModal";
+import EditNoteModal from "./EditNoteModal";
 
 const GlobalModal = () => {
   const [modalState] = useAtom(modalAtom);
@@ -18,7 +19,8 @@ const GlobalModal = () => {
         const { deleteNoteId } = modalState.payload;
         return <DeleteNoteModal deleteNoteId={deleteNoteId} />;
       case ModalTypes.EDIT_NOTE:
-        return modalState.modalType;
+        const { title, notes} = modalState.payload;
+        return <EditNoteModal {...modalState.payload} />;
       default:
         return null;
     }
