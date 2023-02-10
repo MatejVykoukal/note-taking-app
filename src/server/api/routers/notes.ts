@@ -8,7 +8,6 @@ export const notesRouter = createTRPCRouter({
       z.object({
         title: z.string(),
         note: z.string(),
-        userId: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -16,18 +15,18 @@ export const notesRouter = createTRPCRouter({
         data: {
           title: input.title,
           note: input.note,
-          userId: input.userId,
+          userId: ctx.session.user.id,
         },
       });
 
       return note;
     }),
 
-  getNotes: protectedProcedure.input(z.object({ userId: z.string() })).query(
-    async ({ ctx, input }) => {
+  getNotes: protectedProcedure.query(
+    async ({ ctx }) => {
       const notes = await ctx.prisma.note.findMany({
         where: {
-          userId: input.userId,
+          userId: ctx.session.user.id,
         },
       });
       return notes;

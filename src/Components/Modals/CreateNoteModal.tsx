@@ -1,6 +1,5 @@
 import { Modal, TextInput, Textarea, Button } from "@mantine/core";
 import classNames from "classnames";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import {
   NOTE_CONTENT_LENGHT_LIMIT,
@@ -20,9 +19,6 @@ const CreateNoteModal = () => {
   const [title, setTitle] = useState({ value: "", validationError: "" });
   const [note, setNote] = useState({ value: "", validationError: "" });
   const utilsTrpc = api.useContext()
-
-  const { data: session } = useSession();
-  const userId: string = session?.user?.id || "";
 
   const createNoteMutation = api.notes.createNote.useMutation({
     onSuccess: () => {
@@ -59,7 +55,7 @@ const CreateNoteModal = () => {
 
     if (!shouldSave) return;
 
-    createNoteMutation.mutate({ title: title.value, note: note.value, userId });
+    createNoteMutation.mutate({ title: title.value, note: note.value });
     closeAllModals();
   };
 

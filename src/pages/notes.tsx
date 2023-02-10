@@ -1,6 +1,5 @@
 import { Button, Paper, Title, Text, ActionIcon, Loader } from "@mantine/core";
 import { IconPencilPlus } from "@tabler/icons";
-import { useSession } from "next-auth/react";
 import { type FC, useEffect } from "react";
 import CommonLayout from "../Components/Layouts/CommonLayout";
 import NotesListLayout from "../Components/Layouts/NotesListLayout";
@@ -15,12 +14,8 @@ import { api } from "../utils/api";
 const Notes: FC = () => {
   // const { notesState, setAllNotes } = useNotes();
   const { openModal } = useGlobalModal();
-  const { data: session } = useSession();
-  const userId: string = session?.user?.id || "";
 
-  const { data, status } = api.notes.getNotes.useQuery({
-    userId: userId,
-  });
+  const { data, status } = api.notes.getNotes.useQuery();
 
   if (status === "loading") {
     <>
