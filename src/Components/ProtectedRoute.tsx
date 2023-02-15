@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { type FC, type ReactNode, useEffect, useState } from "react";
+import { type FC, type ReactNode, useEffect } from "react";
 import { Loader } from "@mantine/core";
 
 interface Props {
@@ -15,7 +15,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
     if (status == "unauthenticated") {
       void router.push("/signin");
     }
-  }, [status]);
+  }, [status, router]);
 
   const renderProtectedPage = () => {
     if (status === "loading") {
@@ -24,9 +24,9 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
           <Loader color="gray" />
         </div>
       );
-    } 
-    if(status === "authenticated") {
-        return children;
+    }
+    if (status === "authenticated") {
+      return children;
     }
   };
 

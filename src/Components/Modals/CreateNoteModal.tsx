@@ -8,14 +8,12 @@ import {
 import { IconLoader2 } from "@tabler/icons";
 
 import { useGlobalModal } from "../../hooks/useGlobalModal";
-// import { useNotes } from "../../hooks/useNotes";
 import { api } from "../../utils/api";
 import { isStringEmpty } from "../../utils/string";
 import type { Note } from "../../types/notes";
 
 const CreateNoteModal = () => {
   const { closeAllModals } = useGlobalModal();
-  // const { createNewNote } = useNotes();
 
   const [title, setTitle] = useState({ value: "", validationError: "" });
   const [note, setNote] = useState({ value: "", validationError: "" });

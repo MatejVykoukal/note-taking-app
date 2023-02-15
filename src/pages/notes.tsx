@@ -1,13 +1,11 @@
-import { Button, Paper, Title, Text, ActionIcon, Loader } from "@mantine/core";
+import { Button, Title, Text, Loader } from "@mantine/core";
 import { IconPencilPlus } from "@tabler/icons";
-import { type FC, useEffect } from "react";
+import { type FC } from "react";
 import CommonLayout from "../Components/Layouts/CommonLayout";
 import NotesListLayout from "../Components/Layouts/NotesListLayout";
 import NoteCard from "../Components/NoteCard";
 import ProtectedRoute from "../Components/ProtectedRoute";
 import { useGlobalModal } from "../hooks/useGlobalModal";
-// import { useNotes } from "../hooks/useNotes";
-// import { getAllNotesFromLocalStorage } from "../services/notesLocalStorage";
 import { ModalTypes } from "../types/modals";
 import { api } from "../utils/api";
 

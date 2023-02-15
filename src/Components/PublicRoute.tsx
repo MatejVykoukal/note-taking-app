@@ -14,7 +14,7 @@ const PublicRoute: FC<Props> = ({ children }) => {
     if (status == "authenticated") {
       void router.push("/notes");
     }
-  }, [status]);
+  }, [status, router]);
 
   const renderPublicRoute = () => {
     if (status === "loading") {
