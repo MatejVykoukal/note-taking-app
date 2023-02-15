@@ -1,27 +1,40 @@
-import { Button, Paper, Title, Text, ActionIcon } from "@mantine/core";
-import { IconPencilPlus, IconEdit, IconTrash } from "@tabler/icons";
+import { Button, Paper, Title, Text, ActionIcon, Loader } from "@mantine/core";
+import { IconPencilPlus } from "@tabler/icons";
 import { type FC, useEffect } from "react";
 import CommonLayout from "../Components/Layouts/CommonLayout";
 import NotesListLayout from "../Components/Layouts/NotesListLayout";
 import NoteCard from "../Components/NoteCard";
 import ProtectedRoute from "../Components/ProtectedRoute";
 import { useGlobalModal } from "../hooks/useGlobalModal";
-import { useNotes } from "../hooks/useNotes";
-import { getAllNotesFromLocalStorage } from "../services/notesLocalStorage";
+// import { useNotes } from "../hooks/useNotes";
+// import { getAllNotesFromLocalStorage } from "../services/notesLocalStorage";
 import { ModalTypes } from "../types/modals";
-import { areObjectEqual } from "../utils/comparsion";
+import { api } from "../utils/api";
 
 const Notes: FC = () => {
-  const { notesState, setAllNotes } = useNotes();
+  // const { notesState, setAllNotes } = useNotes();
   const { openModal } = useGlobalModal();
 
-  useEffect(() => {
-    const notesFromLocaleStorage = getAllNotesFromLocalStorage();
-    if (areObjectEqual(notesFromLocaleStorage, notesState)) return;
+  const { data, status } = api.notes.getNotes.useQuery();
 
-    setAllNotes(notesFromLocaleStorage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (status === "loading") {
+    <>
+      <Loader color="gray" />
+    </>;
+  }
+
+  if (status === "error") {
+    <>
+      <span>Something went wrong</span>
+    </>;
+  }
+  // useEffect(() => {
+  //   const notesFromLocaleStorage = getAllNotesFromLocalStorage();
+  //   if (areObjectEqual(notesFromLocaleStorage, notesState)) return;
+
+  //   setAllNotes(notesFromLocaleStorage);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <ProtectedRoute>
@@ -30,9 +43,9 @@ const Notes: FC = () => {
           <Title className="mb-5" order={2}>
             All notes
           </Title>
-          {notesState.length ? (
+          {data?.length ? (
             <NotesListLayout>
-              {notesState.map(({ note, title, id }) => (
+              {data.map(({ note, title, id }) => (
                 <NoteCard note={note} title={title} key={id} id={id} />
               ))}
             </NotesListLayout>

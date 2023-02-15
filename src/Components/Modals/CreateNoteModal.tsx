@@ -5,16 +5,68 @@ import {
   NOTE_CONTENT_LENGHT_LIMIT,
   NOTE_TITLE_LENGHT_LIMIT,
 } from "../../constants/notes";
+import { IconLoader2 } from "@tabler/icons";
+
 import { useGlobalModal } from "../../hooks/useGlobalModal";
-import { useNotes } from "../../hooks/useNotes";
+// import { useNotes } from "../../hooks/useNotes";
+import { api } from "../../utils/api";
 import { isStringEmpty } from "../../utils/string";
+import type { Note } from "../../types/notes";
 
 const CreateNoteModal = () => {
   const { closeAllModals } = useGlobalModal();
-  const { createNewNote } = useNotes();
+  // const { createNewNote } = useNotes();
 
   const [title, setTitle] = useState({ value: "", validationError: "" });
   const [note, setNote] = useState({ value: "", validationError: "" });
+  const utilsTrpc = api.useContext();
+
+  const createNoteMutation = api.notes.createNote.useMutation({
+    onMutate: async ({ title, note }) => {
+      // Cancel any outgoing refetches
+      // (so they don't overwrite our optimistic update)
+      await utilsTrpc.notes.getNotes.cancel();
+
+      // Snapshot the previous value
+      const previousNotes = utilsTrpc.notes.getNotes.getData();
+
+      // Optimistically update to the new value
+      utilsTrpc.notes.getNotes.setData(undefined, (prev) => {
+        const optimisticNote: Note = {
+          id: "opt-note-id",
+          title: title,
+          note: note,
+          userId: "opt-user-id",
+        };
+        if (!prev) return [optimisticNote];
+        return [...prev, optimisticNote];
+      });
+
+      // Reset state
+      setNote({ value: "", validationError: "" });
+      setTitle({ value: "", validationError: "" });
+
+      // Return a context object with the snapshotted value
+      return { previousNotes };
+    },
+
+    // If the mutation fails,
+    // use the context returned from onMutate to roll back
+    onError: (err, { title, note }, context) => {
+      // Reset state
+      setNote({ value: note, validationError: "" });
+      setTitle({ value: title, validationError: "" });
+
+      if (!context) return;
+      utilsTrpc.notes.getNotes.setData(undefined, () => context.previousNotes);
+    },
+
+    // Always refetch after error or success:
+    onSettled: async () => {
+      await utilsTrpc.notes.getNotes.invalidate();
+      closeAllModals();
+    },
+  });
 
   const handleValidationErrors = () => {
     let shouldSave = true;
@@ -45,8 +97,7 @@ const CreateNoteModal = () => {
 
     if (!shouldSave) return;
 
-    createNewNote({ note: note.value, title: title.value });
-    closeAllModals();
+    createNoteMutation.mutate({ title: title.value, note: note.value });
   };
 
   useEffect(() => {
@@ -128,6 +179,7 @@ const CreateNoteModal = () => {
         </div>
         <div className="flex justify-end gap-5">
           <Button onClick={handleSaveNote} size="xs" variant="outline">
+            {createNoteMutation.isLoading && <IconLoader2 height={12} />}
             Save
           </Button>
           <Button
