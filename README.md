@@ -3,6 +3,7 @@
 Web application that allows you to take notes.
 
 ## Live demo
+> Demo is currently unavailable. We are working on fixing that!
 
 <https://note-taking-app-production-0a20.up.railway.app/notes>
 
